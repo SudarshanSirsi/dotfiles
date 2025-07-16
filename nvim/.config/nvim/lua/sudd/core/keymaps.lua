@@ -15,21 +15,17 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
--- the how it be paste
+-- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
--- remember yanked
-vim.keymap.set("v", "p", '"_dp', opts)
-
--- Copies or Yank to system clipboard
-vim.keymap.set("n", "<leader>Y", [["+Y]], opts)
-
--- leader d delete wont remember as yanked/clipboard when delete pasting
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+-- next greatest remap ever : asbjornHaland
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- ctrl c as escape cuz Im lazy to reach up to the esc key
 vim.keymap.set("i", "<C-c>", "<Esc>")
 vim.keymap.set("n", "<C-c>", ":nohl<CR>", { desc = "Clear search hl", silent = true })
+
 -- format without prettier using the built in
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
@@ -42,13 +38,21 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- prevent x delete from registering when next paste
 vim.keymap.set("n", "x", '"_x', opts)
 
--- Replace the word cursor is on globally
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+-- Replace the word under the cursor globally
+vim.keymap.set("n", "<leader>sg", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
     { desc = "Replace word cursor is on globally" })
+
+-- Search and replace from the selected texts 
+vim.keymap.set("v", "<leader>v", [[:s/\<\>//gI<Left><Left><Left><Left><Left><Left>]],
+    { desc = "Search and replace from the selected texts" })
+
+--Replace word cursor after confirming
+vim.keymap.set("n", "<leader>sc", [[:%s/<C-r><C-w>/<C-r><C-w>/gcI<Left><Left><Left><Left>]],
+    { desc = "Replace word cursor after confirming" })
+
 
 -- Executes shell command from in here making file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
-
 
 
 -- tab stuff

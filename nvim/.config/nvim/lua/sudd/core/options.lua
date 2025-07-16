@@ -17,8 +17,9 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
+
+local home = os.getenv("HOME") or os.getenv("USERPROFILE")
+vim.opt.undodir = home .. "/.vim/undodir"
 
 vim.opt.incsearch = true
 vim.opt.inccommand = "split"
@@ -50,7 +51,7 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 -- clipboard
-vim.opt.clipboard:append("unnamedplus") --use system clipboard as default
+-- vim.opt.clipboard:append("unnamedplus") --use system clipboard as default
 vim.opt.hlsearch = true
 
 -- for easy mouse resizing, just incase

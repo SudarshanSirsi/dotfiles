@@ -55,14 +55,40 @@ return {
             -- cond = hide_in_width,
         }
 
+        local function detect_path_separator(filepath)
+            if string.find(filepath, "\\") then
+                return "\\"
+            elseif string.find(filepath, "/") then
+                return "/"
+            else
+                return nil -- unknown, no separator found
+            end
+        end
+
         local function short_filepath()
             local filepath = vim.fn.expand("%:~:.")
-            local parts = vim.split(filepath, "/")
-            local count = #parts
-            if count <= 3 then
+            local pathSeperator = detect_path_separator(filepath)
+
+            local parts
+            if pathSeperator == '/' then
+                parts = vim.split(filepath, "/")
+            elseif pathSeperator == '\\' then
+                parts = vim.split(filepath, "\\")
+            else
                 return filepath
             end
-            return table.concat({ parts[count - 2], parts[count - 1], parts[count]}, "  ") -- 
+
+            local count = #parts
+            if count < 2 then
+                return filepath
+            end
+
+            if count < 3 then
+                return table.concat({ parts[count - 1], parts[count] }, "  ")
+            end
+
+            return table.concat({ parts[count - 2], parts[count - 1], parts[count] }, "  ") --
+
         end
 
         local filename = {
@@ -85,7 +111,7 @@ return {
             sections = {
                 lualine_a = { mode },
                 lualine_b = { branch },
-                lualine_c = { diff,{short_filepath}},
+                lualine_c = { diff, { short_filepath } },
                 lualine_x = {
                     {
                         -- require("noice").api.statusline.mode.get,
