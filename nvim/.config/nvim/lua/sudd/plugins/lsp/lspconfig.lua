@@ -59,9 +59,9 @@ return {
                 vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 
                 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
             end,
         })
-
 
         -- NOTE : Moved all this to Mason including local variables
         -- used to enable autocompletion (assign to every lsp server config)
