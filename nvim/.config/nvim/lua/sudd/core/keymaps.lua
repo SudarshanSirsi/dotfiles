@@ -106,3 +106,7 @@ vim.api.nvim_create_user_command('Ter', function(args)
     -- Open terminal and run 'cd <dir> && <command>'
     vim.cmd('terminal cd ' .. vim.fn.shellescape(buf_dir) .. ' && ' .. cmd)
 end, { nargs = '*', desc = "Run terminal command in current buffer's directory" })
+
+-- set wrap and unwrap
+vim.keymap.set('n', '<leader>W', ':set wrap', { noremap = true, silent = false, desc = "Prefill :Ter command" })
+vim.keymap.set('n', '<leader>nW', ':set nowrap', { noremap = true, silent = false, desc = "Prefill :Ter command" })
